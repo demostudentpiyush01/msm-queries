@@ -13,7 +13,7 @@
   
 </a>
 
-<hr>
+
 
 <dl>
   <dt>
@@ -58,11 +58,12 @@
     <%= time_ago_in_words(@the_director.updated_at) %> ago
   </dd>
 </dl>
-<!--<hr>
+
 
 <h2>Filmography</h2>
 
 <table border="1">
+<hr>
   <tr>
     <th>
       ID
@@ -87,32 +88,35 @@
     <th>
     </th>
   </tr>
-
+  </hr>
+  <% @filmography.each do |a_film|%>
   <tr>
     <td>
-      25
+      <%= a_film.id %>
     </td>
 
     <td>
-      <img src="https://image.tmdb.org/t/p/w500/6FfCtAuVAW8XJjZ7eWeLibRLWTw.jpg" style="width:250px;">
+      <%= a_film.image %>
     </td>
 
     <td>
-      Star Wars
+      <%= a_film.title %>
     </td>
 
     <td>
-      1977
+      <%= a_film.year %>
     </td>
 
     <td>
-      George Lucas
+      <% dir_nam = Director.where({ :id => a_film.director_id}).at(0)%> 
+        <%= dir_nam.name%>
     </td>
 
     <td>
-      <a href="/movies/25">
+      <a href="/movies/<%= a_film.id %>">
         Show details
       </a>
     </td>
   </tr>
-</table>-->
+  <% end %>
+</table>

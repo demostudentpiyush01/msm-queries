@@ -1,0 +1,121 @@
+<h1> Actor #<%= @the_actor.id%> details
+
+</h1>
+<a href="/actors" class="btn btn-block btn-outline-secondary">
+  Go back
+</a>
+
+&nbsp;|&nbsp;
+
+<a href="/delete_actor/504" class="btn btn-block btn-outline-secondary">
+  Delete actor
+  
+</a>
+
+<hr>
+
+<dl>
+  <dt>
+    Name
+  </dt>
+  <dd>
+    <%= @the_actor.name %>
+  </dd>
+
+  <dt>
+    Dob
+  </dt>
+  <dd>
+    <%= @the_actor.dob %>
+  </dd>
+
+  <dt>
+    Bio
+  </dt>
+  <dd>
+    <%= @the_actor.bio %>
+  </dd>
+
+  <dt>
+    Image
+  </dt>
+  <dd>
+    <%= @the_actor.image %>
+  </dd>
+
+  <dt>
+    Created at
+  </dt>
+  <dd>
+    over <%= time_ago_in_words(@the_actor.created_at) %> years ago
+  </dd>
+
+  <dt>
+    Updated at
+  </dt>
+  <dd>
+    over over <%= time_ago_in_words(@the_actor.updated_at) %> years ago
+  </dd>
+</dl>
+
+<hr>
+
+<h2>Filmography</h2>
+
+<table border="1">
+  <tr>
+    <th>
+      Title
+    </th>
+
+    <th>
+      Year
+    </th>
+
+    <th>
+      Director
+    </th>
+
+    <th>
+      Character name
+    </th>
+
+    <th>
+    </th>
+  </tr>
+  <%= @character.inspect %>
+  <% @character.each do |a_character|%>
+      
+    <tr>
+      <td>
+         <% t = Movie.where({ :id => a_character.movie_id}).at(0)%>
+        <%= t.title%>
+      </td>
+
+      <td>
+        <%= t.year%>
+      </td>
+
+      <td>
+
+
+          <% dir_nam = Director.where({ :id => t.director_id}).at(0)%> 
+        <%= dir_nam.name%>
+      </td>
+
+      <td>
+        <!--% char_nam = Character.where({ :actor_id => t.name}).at(0)%--> 
+        <!--%= char_nam.name%-->
+        <% c = Character.where({ :id=> a_character.id}).at(0)%>
+        <%= c.name %>
+      </td>
+
+      <td>
+      <!--% mov_nam = Movie.where({ :id => t.title}).at(0)%--> 
+        <a href="/movies/<%= t.id %>">
+          Show details
+        </a>
+      </td>
+    </tr>
+    <% end%>
+</table>
